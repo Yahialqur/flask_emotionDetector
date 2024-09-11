@@ -1,14 +1,22 @@
+"""
+Server for emotion detection application.
+"""
+
 import sys
 import os
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from EmotionDetection.emotion_detection import emotion_detector
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request
 
-
-app = Flask("Emotion Dectection")
+# Create flask app named Emotion Detection
+app = Flask("Emotion Detection")
 
 @app.route('/emotionDetector')
 def detect_emotion():
+    """
+    Handle GET requests to /emotionDetector and return emotion analysis results.
+    """
     # Get the text input from the query string (GET request)
     text_to_analyze = request.args.get('textToAnalyze')
 
@@ -33,9 +41,12 @@ def detect_emotion():
 # Route to render the index.html page
 @app.route("/")
 def render_index_page():
+    """
+    Render the index.html page.
+    """
     return render_template("index.html")
 
 # Run the server
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000)
-
+    
