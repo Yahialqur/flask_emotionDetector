@@ -11,12 +11,13 @@ app = Flask("Emotion Dectection")
 def detect_emotion():
     # Get the text input from the query string (GET request)
     text_to_analyze = request.args.get('textToAnalyze')
-    
-    if not text_to_analyze:
-        return jsonify({"error": "No text provided"}), 400
 
     # Use the emotion detector function to analyze the text
     result = emotion_detector(text_to_analyze)
+
+    # Error handling
+    if result['dominant_emotion'] is None:
+        return "Invalid text! Please try again!"
 
     # Construct a formatted response string
     response_text = (
